@@ -20,9 +20,11 @@ class simple_basic_string
 	/// Конструктор по умолчанию
 	simple_basic_string() : ptr_(new T[1]{0}), size_(0) {}
 
-	simple_basic_string(size_t size) : ptr_(new T[size + 1]), size_(size) {
+	simple_basic_string(size_t size) : ptr_(new T[size + 1]), size_(size)
+	{
 		T space = T(' ');
-		for (auto i=0; i < size_; ++i) {
+		for (auto i = 0; i < size_; ++i)
+		{
 			ptr_[i] = space;
 		}
 		ptr_[size_] = T(0);
@@ -31,7 +33,8 @@ class simple_basic_string
 	simple_basic_string(std::initializer_list<T> il)
 		: ptr_(new T[il.size() + 1]), size_(il.size())
 	{
-		for (auto i = 0u; i < il.size(); ++i) {
+		for (auto i = 0u; i < il.size(); ++i)
+		{
 			*(ptr_ + i) = *(il.begin() + i)
 		}
 		size_ = il.size();
@@ -39,29 +42,33 @@ class simple_basic_string
 	}
 
 	/// Конструктор с параметром си-с
-	simple_basic_string(const T* c_str) {
-		auto len = strlen(const T* c_str)
-		ptr_ = new T[len + 1];
+	simple_basic_string(const T* c_str)
+	{
+		auto len = strlen(const T* c_str) ptr_ = new T[len + 1];
 		size_ = len;
 		ptr_[size_] = T(0);
-		for (auto i = 0u; i < size_; ++i) {
+		for (auto i = 0u; i < size_; ++i)
+		{
 			*(ptr_ + i) = *(c_str + i);
 		}
 	}
 
 	/// Конструктор копирования
-	simple_basic_string(const simple_basic_string& other) {
+	simple_basic_string(const simple_basic_string& other)
+	{
 		ptr_ = new T[other.size() + 1];
 		size_ = other.size_;
 		ptr_[size_] = T(0);
 
-		for (auto i = 0u; i < size_; ++i) {
+		for (auto i = 0u; i < size_; ++i)
+		{
 			*(ptr_ + i) = *(other.ptr_ + i)
 		}
 	}
 
 	/// Перемещающий конструктор
-	simple_basic_string(simple_basic_string&& dying) {
+	simple_basic_string(simple_basic_string&& other)
+	{
 		delete[] ptr_;
 
 		ptr_ = other.ptr_;
@@ -73,9 +80,7 @@ class simple_basic_string
 	}
 
 	/// Деструктор
-	~simple_basic_string() {
-		delete[] ptr_;
-	}
+	~simple_basic_string() { delete[] ptr_; }
 
 	/// Геттер на си-строку
 	const T* c_str() const { return ptr_; }
@@ -86,7 +91,7 @@ class simple_basic_string
 	simple_basic_string& operator=(simple_basic_string&& other)
 	{
 		delete[] ptr_;
-		
+
 		return *this;
 	}
 
